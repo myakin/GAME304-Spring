@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void SetPlayerRotationToCamDirection() {
-        if (Vector3.Angle(transform.forward, mainCam.forward) > 5) {
+        if (Vector3.Angle(transform.forward, mainCam.forward) > 30) {
             Vector3 rightAxis = -Vector3.Cross(mainCam.forward, Vector3.up);
             Vector3 forwarAxis = Vector3.Cross(rightAxis, Vector3.up);
             transform.rotation = Quaternion.LookRotation(forwarAxis, Vector3.up);

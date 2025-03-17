@@ -1,8 +1,13 @@
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
+using System.Collections;
 
 public class WeaponManager : MonoBehaviour
 { 
-    public Transform weapon;  
+    public Transform weapon;
+    public Rig rig;
+    public FollowObject leftHandFollowScript;
+    public FollowObject aimTargetFollowScript;
     public bool useRifle;
 
     private InputManager inputManager;
@@ -34,6 +39,24 @@ public class WeaponManager : MonoBehaviour
         weapon.SetParent(targetParent);
         weapon.localPosition = Vector3.zero;
         weapon.localRotation = Quaternion.identity;
+    }
+
+    public void SetAnimationRigging() {
+        Debug.Log(useRifle);
+        StartCoroutine(SetWeight(useRifle ? 1 : 0));
+    }
+
+    private IEnumerator SetWeight(float value) {
+        float initialValue = rig.weight;
+        float timer = 0;
+        float duration = 1;
+        while (timer<duration) {
+            rig.weight = Mathf.Lerp(initialValue, value, timer/duration);
+            timer+=Time.deltaTime;
+            yield return null;
+        }
+        rig.weight = value;
+        leftHandFollowScript.byPass = value == 0;
     }
 
     private Transform SearchInChildren(string searchPattern) {
