@@ -27,6 +27,14 @@ public class WeaponManager : MonoBehaviour
 
     public void ToggleRifleUsage() {
         useRifle = !useRifle;
+        if (useRifle) {
+            SceneLoader.instance.LoadScene("CombatUI", true);
+            GetComponentInChildren<AimingController>().byPass = false;
+        } else {
+            SceneLoader.instance.UnloadScene("CombatUI");
+            GetComponentInChildren<AimingController>().byPass = true;
+        }
+        
     }
 
     public void UpdateRifleOnHandStatus() {

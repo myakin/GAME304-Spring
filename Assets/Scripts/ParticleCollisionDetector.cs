@@ -17,6 +17,8 @@ public class ParticleCollisionDetector : MonoBehaviour
         // reduce enemy's health
         if (other.GetComponent<HealthManager>()) {
             other.GetComponent<HealthManager>().Reduce(5);
+        } else if (other.GetComponent<HealthManagerDelegate>()) {
+            other.GetComponent<HealthManagerDelegate>().Reduce(5);
         }
         
         int numCollisionEvents = part.GetCollisionEvents(other, collisionEvents);
