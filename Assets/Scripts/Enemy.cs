@@ -53,6 +53,12 @@ public class Enemy : MonoBehaviour
         animator.SetFloat("ver", 0);
     }
 
+    public void SetEnemy(Transform anEnemy) {
+        GetComponent<EnemyBehaviour>().SetEnemy(anEnemy);
+    }
 
+    public void ReleaseEnemy() {
+        GetComponent<EnemyBehaviour>().ReleaseEnemy();
+    }
     
 }

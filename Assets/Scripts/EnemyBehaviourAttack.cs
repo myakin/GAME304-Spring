@@ -1,26 +1,26 @@
 using UnityEngine;
 using System.Collections;
 
-public class EnemyBehaviourAttack : MonoBehaviour
+public class EnemyBehaviourAttack : EnemyBehaviour
 {
-    private Animator animator;
-    private IEnumerator executionCoroutine;
+    
+    internal override IEnumerator ExecutionCoroutine() {
+        if (!animator)
+            animator = GetComponent<Animator>();
+        animator.SetFloat("ver", 0);
+        animator.SetBool("attack", true);
 
-    private void Start() {
-        animator = GetComponent<Animator>();
-    }
+        float chaseThreshold = 2f;
+        float chaseThresholdSqr = chaseThreshold * chaseThreshold;
 
-    public void ExecuteState() {
-        if (executionCoroutine == null) {
-            executionCoroutine = ExecutionCoroutine();
-            StartCoroutine(executionCoroutine);
-        }
-    }
-
-    private IEnumerator ExecutionCoroutine() {
         bool loop = true;
         while (loop) {
-
+            if ((target.position - transform.position).sqrMagnitude > chaseThresholdSqr) {
+                animator.SetBool("attack", false);
+                gameObject.AddComponent<EnemyBehaviourChase>().target = target;
+                GetComponent<EnemyBehaviourChase>().ExecuteState();
+                Destroy(this);
+            }
             yield return null;
         }
     }

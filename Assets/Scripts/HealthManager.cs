@@ -25,8 +25,9 @@ public class HealthManager : MonoBehaviour
             if (enemyHealthCanvasTurnOffCoroutine == null) {
                 enemyHealthCanvasTurnOffCoroutine = EmemyHealthCanvasTurnOffCoroutine();
                 StartCoroutine(enemyHealthCanvasTurnOffCoroutine);
-            }
-            
+            } 
+        } else {
+            PlayerUIManager.instance.SetHealth(currentHealth, maxHealth);
         }
 
         if (currentHealth==0) {

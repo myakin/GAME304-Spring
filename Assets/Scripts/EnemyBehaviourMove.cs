@@ -3,7 +3,6 @@ using System.Collections;
 
 public class EnemyBehaviourMove : EnemyBehaviour
 {
-    public Transform target;
 
     internal override IEnumerator ExecutionCoroutine() {
         if (!target) {
