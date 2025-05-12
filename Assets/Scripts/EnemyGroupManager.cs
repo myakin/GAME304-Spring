@@ -6,7 +6,11 @@ public class EnemyGroupManager : MonoBehaviour
 {
     public List<Enemy> enemies;
 
-    private IEnumerator Start() {
+    public void Initiate() {
+        StartCoroutine(InitiationCoroutine());
+    }
+
+    private IEnumerator InitiationCoroutine() {
         for (int i=0; i<enemies.Count;  i++) {
             enemies[i].GetComponent<Animator>().enabled = true;
         }

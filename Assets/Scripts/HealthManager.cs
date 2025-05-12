@@ -9,6 +9,7 @@ public class HealthManager : MonoBehaviour
 
     private float enemyHealthCanvasTurnOffTimer;
     private IEnumerator enemyHealthCanvasTurnOffCoroutine;
+    private bool isDead;
 
     public void Reduce(int amount) {
         currentHealth-=amount;
@@ -30,9 +31,13 @@ public class HealthManager : MonoBehaviour
             PlayerUIManager.instance.SetHealth(currentHealth, maxHealth);
         }
 
-        if (currentHealth==0) {
+        if (currentHealth==0 && !isDead) {
+            isDead = true;
+
             // die
-            
+            Destroy(GetComponent<EnemyBehaviour>());
+
+            gameObject.AddComponent<EnemyBehaviourDeath>().ExecuteState();
         }
     }
 
